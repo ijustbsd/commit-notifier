@@ -28,7 +28,8 @@ async def handle_commits(gh_client, tg_bot_client):
         if not commits:
             return
 
-        exist_commits = [commit.sha for commit in person.commits]
+        with db_manager.allow_sync():
+            exist_commits = [commit.sha for commit in person.commits]
         new_commits = [c for c in commits if c["sha"] not in exist_commits]
 
         if not new_commits:
@@ -52,7 +53,7 @@ async def handle_commits(gh_client, tg_bot_client):
 
         await tg_bot_client.send_message(
             message,
-            settings.TG_CHAT_ID,
+            person.tg_chat_id,
             {
                 "parse_mode": "Markdown",
                 "disable_web_page_preview": "True",
