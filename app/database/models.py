@@ -15,5 +15,5 @@ class Person(BaseModel):
 
 
 class Commit(BaseModel):
-    author = pw.ForeignKeyField(Person, backref='commits')
+    author = pw.ForeignKeyField(Person, backref="commits")
     sha = pw.CharField()

@@ -10,6 +10,6 @@ manager = peewee_async.Manager(
         port=settings.DB_PORT,
         user=settings.DB_USER,
         password=settings.DB_PASSWORD,
-        max_connections=settings.DB_MAX_CONNECTIONS
-    )
+        max_connections=settings.DB_MAX_CONNECTIONS,
+    ),
 )

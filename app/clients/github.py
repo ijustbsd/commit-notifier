@@ -2,11 +2,10 @@ import typing as t
 
 
 class GithubClient:
-
     def __init__(self, session, token) -> None:
         self.session = session
         self.headers = {
-            'Authorization': f'token {token}'
+            "Authorization": f"token {token}",
         }
 
     async def _get(self, url) -> t.Any:
@@ -16,11 +15,16 @@ class GithubClient:
             return await resp.json()
 
     async def get_commits(self, login, repo_name) -> t.List[t.Dict]:
-        data = await self._get(f'https://api.github.com/repos/{login}/{repo_name}/commits')
+        data = await self._get(
+            f"https://api.github.com/repos/{login}/{repo_name}/commits",
+        )
         if data is None:
             return []
-        return [{
-            'sha': commit['sha'],
-            'message': commit['commit']['message'],
-            'url': commit['html_url']
-        } for commit in data]
+        return [
+            {
+                "sha": commit["sha"],
+                "message": commit["commit"]["message"],
+                "url": commit["html_url"],
+            }
+            for commit in data
+        ]

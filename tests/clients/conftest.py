@@ -25,7 +25,7 @@ async def session():
 
 @pytest.fixture
 def github_client(session):
-    return GithubClient(session, 'token')
+    return GithubClient(session, "token")
 
 
 @pytest.fixture

@@ -1,9 +1,8 @@
 class TelegramBotClient:
-
     def __init__(self, session, token) -> None:
         self.session = session
 
-        self.base_url = f'https://api.telegram.org/bot{token}'
+        self.base_url = f"https://api.telegram.org/bot{token}"
 
     async def _get(self, endpoint, params) -> None:
         url = self.base_url + endpoint
@@ -13,8 +12,8 @@ class TelegramBotClient:
         if params is None:
             params = {}
         get_params = {
-            'chat_id': chat_id,
-            'text': text,
-            **params
+            "chat_id": chat_id,
+            "text": text,
+            **params,
         }
-        await self._get('/sendMessage', get_params)
+        await self._get("/sendMessage", get_params)
