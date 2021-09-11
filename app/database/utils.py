@@ -2,7 +2,7 @@ from pathlib import Path
 
 from yoyo import get_backend, read_migrations
 
-from ..config import settings
+from ..config import settings as s
 from .manager import manager
 from .models import Commit, Person
 
@@ -19,13 +19,7 @@ def create_tables():
 
 def apply_migrations():
     backend = get_backend(
-        (
-            "postgres://",
-            f"{settings.DB_USER}:{settings.DB_PASSWORD}"
-            "@"
-            f"{settings.DB_HOST}:{settings.DB_PORT}"
-            f"/{settings.DB_NAME}",
-        ),
+        f"postgres://{s.DB_USER}:{s.DB_PASSWORD}@{s.DB_HOST}:{s.DB_PORT}/{s.DB_NAME}",
     )
     migrations = read_migrations((Path(__file__).parent / "migrations").as_posix())
 
