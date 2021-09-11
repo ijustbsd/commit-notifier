@@ -12,6 +12,7 @@ class Person(BaseModel):
     full_name = pw.CharField()
     github_username = pw.CharField()
     github_repo = pw.CharField()
+    tg_chat_id = pw.CharField()
 
 
 class Commit(BaseModel):
