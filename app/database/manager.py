@@ -13,3 +13,5 @@ manager = peewee_async.Manager(
         max_connections=settings.DB_MAX_CONNECTIONS,
     ),
 )
+
+manager.database.set_allow_sync(False)

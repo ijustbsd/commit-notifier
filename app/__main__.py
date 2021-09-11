@@ -5,13 +5,15 @@ import aiohttp
 
 from .clients import GithubClient, TelegramBotClient
 from .config import settings
-from .database import apply_migrations
 from .database import manager as db_manager
 from .database import models, utils
 
 logger = logging.getLogger("main")
 
-utils.create_tables()
+
+with db_manager.allow_sync():
+    utils.apply_migrations()
+    utils.create_tables()
 
 
 async def handle_commits(gh_client, tg_bot_client):
@@ -59,8 +61,6 @@ async def handle_commits(gh_client, tg_bot_client):
 
 
 async def main():
-    apply_migrations()
-
     async with aiohttp.ClientSession() as session:
         gh = GithubClient(session, settings.GITHUB_TOKEN)
         tg_bot = TelegramBotClient(session, settings.TG_BOT_TOKEN)
