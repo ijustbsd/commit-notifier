@@ -26,14 +26,14 @@ async def handle_commits(gh_client, tg_bot_client):
         commits = commits[::-1]
 
         if not commits:
-            return
+            continue
 
         with db_manager.allow_sync():
             exist_commits = [commit.sha for commit in person.commits]
         new_commits = [c for c in commits if c["sha"] not in exist_commits]
 
         if not new_commits:
-            return
+            continue
 
         for commit in new_commits:
             await db_manager.create(
